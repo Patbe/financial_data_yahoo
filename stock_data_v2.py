@@ -1,7 +1,9 @@
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
-# needed to deals with SSL Problems:
+
+# needed to deal with SSL Problems:
 import ssl
+
 import re
 import datetime
 import time
@@ -13,10 +15,6 @@ ticker = str()
 url_new = str()
 
 
-
-#context = ctx added for the ssl
-#print(lst)
-
 def create_database():
 
     # define some global variables
@@ -26,7 +24,7 @@ def create_database():
     global soup
     global lst
     global ticker
-    #global ticker_list
+    
 
     conn = sqlite3.connect("stock_db.sqlite")
     cur = conn.cursor()
@@ -155,7 +153,7 @@ url = "https://query1.finance.yahoo.com/v7/finance/download/SAP.DE?period1=15828
 end_of_url_string ="&interval=1d&events=history&includeAdjustedClose=true"
 
 
-## Splitting up of the string into three parts to replace the parts that are needed for new tickers
+## Splitting up of the string into three parts to replace the parts that are needed for new tickers - using regular expressions
 
 ## String 1: use regular expressions \S - > single character other than white space, + -> one or more times, ? -> non-greedy, until download
 first_text_part = re.findall("https:\S+?download/", url)
@@ -166,7 +164,6 @@ third_text = re.findall("\?.+", url)
 for i in third_text:
     text2 = i
 
-## dritter text (text 2) muss nochmal aufgespalten werden und nochmal zusammengesetzt mit den daten des Users
 
 ## third text (text 2 needs to split again). Start with literal S until &
 
